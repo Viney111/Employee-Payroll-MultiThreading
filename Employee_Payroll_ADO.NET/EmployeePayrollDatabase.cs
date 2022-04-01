@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Data.SqlClient;
 using System.Data;
 
@@ -76,12 +77,12 @@ namespace Employee_Payroll_ADO.NET
         }
         public void AddEmployeeListToDBWithThread(List<Employee> listofEmployees)
         {   
-            listofEmployees.ForEach(employeeData =>
+            listofEmployees.ForEach(employeeData => 
             {
                 Task thread = new Task(() =>
                 {
                     Console.WriteLine("EmployeeBeingAdded : " + employeeData.employeeName);
-                    this.AddEmployeeToDatabase(employeeData);
+                    AddEmployeeToDatabase(employeeData);
                     Console.WriteLine("Employee Added: " + employeeData.employeeName);
                 });
                 thread.Start();
